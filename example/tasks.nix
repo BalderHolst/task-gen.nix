@@ -1,4 +1,5 @@
-{ task-gen }:
+{ task-lib }:
+with task-lib;
 let
     cow-say = msg: /*bash*/ ''
         cowsay "${msg}"
@@ -7,7 +8,6 @@ let
         echo "${msg}" | lolcat
     '';
 in
-with task-gen;
 rec { 
     cow-hello     = mkTask "cow-say-hello"     { script = cow-say "Hello, there!"; };
     rainbow-hello = mkTask "rainbow-say-hello" { script = rainbow-say "Hello, there!"; };

@@ -72,7 +72,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "task-lib": "task-lib"
+        "task-gen": "task-gen"
       }
     },
     "systems": {
@@ -105,19 +105,19 @@
         "type": "github"
       }
     },
-    "task-lib": {
+    "task-gen": {
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-ueUVQID6BUYWr7GpWjOG6RoDDeUnKiquc4il9rxSW9Q=",
-        "path": "/nix/store/jinf59x7p83s85ihhqw5989d11jqdgbw-source",
+        "narHash": "sha256-MJQc6fjH2H83T9mf0wzgzWU0FiC5WQv56HLquQWYCoo=",
+        "path": "/nix/store/5vxsz83slkcn97i67y95vfki1xz66zah-source",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/jinf59x7p83s85ihhqw5989d11jqdgbw-source",
+        "path": "/nix/store/5vxsz83slkcn97i67y95vfki1xz66zah-source",
         "type": "path"
       }
     }

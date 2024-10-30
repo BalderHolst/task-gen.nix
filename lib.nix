@@ -1,5 +1,7 @@
-{ pkgs, lib }:
+{ pkgs }:
 let
+
+    lib = pkgs.lib;
 
     # Default message to be added to the top of each script
     script-msg = ''
@@ -54,10 +56,10 @@ rec {
     mkScriptBin = _mkScript pkgs.writeShellScriptBin;
 
     #: Generate a script that executes a task
-    mkScript    = _mkScript pkgs.writeShellScript;
+    mkScript = _mkScript pkgs.writeShellScript;
 
     #: Generate a help script that lists all tasks
-    mkHelpScript    = _mkHelpScript pkgs.writeShellScript;
+    mkHelpScript = _mkHelpScript pkgs.writeShellScript;
 
     #: Generate a help script (package) that lists all tasks
     mkHelpScriptBin = _mkHelpScript pkgs.writeShellScriptBin;

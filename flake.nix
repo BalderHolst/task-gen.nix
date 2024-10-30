@@ -12,6 +12,6 @@
         pkgs = import nixpkgs { inherit system; };
     in
     {
-        lib = import ./lib.nix {pkgs = pkgs; lib = pkgs.lib; };
+        lib = import ./lib.nix {pkgs = pkgs; };
     });
 }

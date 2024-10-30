@@ -75,8 +75,6 @@ rec {
 
         main: ${help-task-name}
 
-        all: ${ builtins.concatStringsSep " " (map (j: "${j.name}") task_list) }
-
         ${help-task-name}:
         ${ _tabIndent /*bash*/ ''
             @echo "usage: make <task>"

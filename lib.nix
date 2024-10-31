@@ -36,7 +36,7 @@ let
         ${ builtins.concatStringsSep "\n" (map (j:  "echo -e '\t${j.name}'") task_names) }
 
         # Only print if `${help-task-name}` is in current PATH
-        which ${help-task-name} 2>&1 > /dev/null && echo -e "\nUse '${help-task-name}' command to show this list."
+        echo -e "\nUse '${help-task-name}' command to show this list."
     '';
 
 in

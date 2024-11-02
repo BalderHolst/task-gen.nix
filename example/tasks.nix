@@ -15,7 +15,7 @@ rec {
     cow-morning     = mkTask "cow-say-morning"     { script = cow-say "Good morning!"; };
     rainbow-morning = mkTask "rainbow-say-morning" { script = rainbow-say "Good morning!"; };
 
-    gen-scripts = mkGenScriptsTask "gen-scripts";
+    gen-scripts = task-lib.tasks.meta.gen-scripts "gen-scripts";
 
     all = mkSeq "all" [ cow-hello rainbow-hello cow-morning rainbow-morning ];
 }

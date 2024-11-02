@@ -6,7 +6,7 @@
 
         # TODO: This assumes execution from the root of the project
         #: Generate a task to run the app which generates scripts in specified paths
-        gen-scripts-task = name: mkTask "gen-scripts" { script = "nix run .#${name}"; };
+        gen-scripts = name: mkTask "gen-scripts" { script = "nix run .#${name}"; };
 
     };
 

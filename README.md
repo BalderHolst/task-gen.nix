@@ -3,8 +3,6 @@ A nix library for creating project tasks using nix. These tasks can be embedded 
 
 
 ### Available Functions
-Below is a list of function available from `task-gen.lib.<system>`.
-
 `mkTask`
 Create a task
 
@@ -35,5 +33,17 @@ Generate a shell hook for tasks
 `mkGenScriptsApp`
 Create a flake app that generates scripts, based on a task, in specified paths
 
-`mkGenScriptsTask`
+### Builtin Tasks
+Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.tasks`.
+
+#### `meta`
+Generators for `task-gen` related tasks
+
+`gen-scripts-task`
 Generate a task to run the app which generates scripts in specified paths
+
+#### `git`
+Generators for git tasks
+
+`check-no-uncommited`
+Check that the repository has no uncommitted changes

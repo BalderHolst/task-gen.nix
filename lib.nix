@@ -151,8 +151,5 @@ rec {
         '');
     };
 
-    # TODO: This assumes execution from the root of the project
-    #: Generate a task to run the app which generates scripts in specified paths
-    mkGenScriptsTask = name: mkTask "gen-scripts" { script = "nix run .#${name}"; };
-
+    tasks = import ./builtin-tasks.nix { inherit mkTask; };
 }

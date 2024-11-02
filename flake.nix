@@ -23,6 +23,14 @@
     in
     {
         lib = task-lib;
+
+        apps.gen-scripts = with task-lib; mkGenScriptsApp {
+            ".hooks/pre-push" = mkScript (mkSeq "pre-push" [
+                tasks.gen-readme
+                (task-lib.tasks.git.check-no-uncommited "Please commit all changes before pushing")
+            ]);
+        };
+
         devShells = {
             default = pkgs.mkShell {
                 buildInputs = with pkgs; [
@@ -32,6 +40,8 @@
             };
 
             shellHook = ''
+                git config core.hooksPath .hooks
+
                 echo -e "Welcome to the task library dev shell!\n"
             '' + task-lib.mkShellHook tasks;
         };

@@ -39,7 +39,7 @@ Below is a list of functions to generate common tasks. The list is short for now
 #### `meta`
 Generators for `task-gen` related tasks
 
-`gen-scripts-task`
+`gen-scripts`
 Generate a task to run the app which generates scripts in specified paths
 
 #### `git`

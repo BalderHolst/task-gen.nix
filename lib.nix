@@ -25,8 +25,31 @@ let
         builtins.filter (e: builtins.typeOf e != "list") (builtins.split "\n" s)
     ));
 
+    _writeScript = name: script: pkgs.stdenv.mkDerivation {
+        name = name;
+        phases = [ "installPhase" ];
+        installPhase = ''
+            touch $out
+            echo -e "#!/bin/sh\n" > $out
+            cat ${pkgs.writeText "script" script} >> $out
+            chmod +x "$out"
+        '';
+    };
+
+    _writeScriptBin = name: script: pkgs.stdenv.mkDerivation {
+        name = name;
+        phases = [ "installPhase" ];
+        installPhase = ''
+            mkdir -p "$out/bin"
+            echo -e "#!/bin/sh\n" > "$out/bin/${name}"
+            cat ${pkgs.writeText "script" script} >> "$out/bin/${name}"
+            chmod +x "$out/bin/${name}"
+        '';
+    };
+
     _mkScript = write_script: task: write_script task.name (script-msg + (_taskScriptString task 0));
 
+    # TODO: Check that tasks are available in shell
     _mkHelpScript = write_script: tasks:
     let
         task_names = if builtins.typeOf tasks == "list" then tasks else builtins.attrValues tasks;
@@ -53,16 +76,16 @@ rec {
     mkSeq = name: seq: mkTask name { depends = seq; };
 
     #: Generate a script (package) that executes a task
-    mkScriptBin = _mkScript pkgs.writeShellScriptBin;
+    mkScriptBin = _mkScript _writeScriptBin;
 
     #: Generate a script that executes a task
-    mkScript = _mkScript pkgs.writeShellScript;
+    mkScript = _mkScript _writeScript;
 
     #: Generate a help script that lists all tasks
-    mkHelpScript = _mkHelpScript pkgs.writeShellScript;
+    mkHelpScript = _mkHelpScript _writeScript;
 
     #: Generate a help script (package) that lists all tasks
-    mkHelpScriptBin = _mkHelpScript pkgs.writeShellScriptBin;
+    mkHelpScriptBin = _mkHelpScript _writeScriptBin;
 
     #: Generate a list of scripts for each task
     mkScripts = tasks: (lib.attrsets.mapAttrsToList (_: j: mkScriptBin j) tasks) ++ [(mkHelpScriptBin tasks)];

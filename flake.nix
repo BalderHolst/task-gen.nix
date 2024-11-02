@@ -4,7 +4,11 @@
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
         flake-utils.url = "github:numtide/flake-utils";
-        txtx.url = "github:BalderHolst/txtx";
+        txtx = {
+            url = "github:BalderHolst/txtx";
+            inputs.flake-utils.follows = "flake-utils";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = { nixpkgs, flake-utils, ... }@inputs:

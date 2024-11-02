@@ -11,7 +11,7 @@ let
     '';
 
     # Name of the help task
-    help-task-name = "task-help";
+    help-task-name = "thelp";
 
     _taskScriptString = task: level: ''
         echo "${ lib.strings.replicate level "--" }->> Running '${task.name}'"
@@ -31,7 +31,7 @@ let
         installPhase = ''
             touch $out
             echo -e "#!/bin/sh\n" > $out
-            cat ${pkgs.writeText "script" script} >> $out
+            cat ${pkgs.writeText "${name}-script" script} >> $out
             chmod +x "$out"
         '';
     };

@@ -17,7 +17,7 @@ class Module:
         self.symbols.append(symbol)
 
     def to_markdown(self):
-        desc  = f"#### `{self.name}`\n"
+        desc  = f"### `{self.name}`\n"
         desc += f"{self.desc}\n\n"
         desc += "\n\n".join(map(lambda x: x.to_markdown(), self.symbols))
         return desc
@@ -33,7 +33,7 @@ class Symbol:
         self.file = file
 
     def to_markdown(self):
-        return f"##### `{self.name}`: {self.desc}\n\nSource: [`{self.file}:{self.line}`]({self.file}?plain=1#L{self.line})\n\n"
+        return f"#### `{self.name}`: {self.desc}\n\nSource: [`{self.file}:{self.line}`]({self.file}?plain=1#L{self.line})\n\n"
 
     def __repr__(self):
         return f"Symbol({self.name}, {self.desc}, {self.line})"

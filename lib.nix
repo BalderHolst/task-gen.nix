@@ -66,6 +66,8 @@ in
 rec {
 
     #: Create a task
+    #:-  name: string
+    #:-  details: { script?: string, depends?: list[task] }
     mkTask = name: { script ? "", depends ? [], }: {
         name = name;
         script = script;
@@ -73,24 +75,32 @@ rec {
     };
 
     #: Create a sequence of tasks
+    #:-  name: string
+    #:-  seq: list[task]
     mkSeq = name: seq: mkTask name { depends = seq; };
 
-    #: Generate a script (package) that executes a task
-    mkScriptBin = _mkScript _writeScriptBin;
-
     #: Generate a script that executes a task
+    #:-  task: task
     mkScript = _mkScript _writeScript;
 
+    #: Generate a script (package) that executes a task
+    #:-  task: task
+    mkScriptBin = _mkScript _writeScriptBin;
+
     #: Generate a help script that lists all tasks
+    #:-  tasks: list[task]
     mkHelpScript = _mkHelpScript _writeScript;
 
     #: Generate a help script (package) that lists all tasks
+    #:-  tasks: list[task]
     mkHelpScriptBin = _mkHelpScript _writeScriptBin;
 
     #: Generate a list of scripts for each task
+    #:-  tasks: list[task]
     mkScripts = tasks: (lib.attrsets.mapAttrsToList (_: j: mkScriptBin j) tasks) ++ [(mkHelpScriptBin tasks)];
 
     #: Generate a Makefile for tasks
+    #:-  tasks: list[task]
     mkMakefile = tasks: let
         task_list = if builtins.typeOf tasks == "list" then tasks else builtins.attrValues tasks;
     in
@@ -122,11 +132,13 @@ rec {
     );
 
     #: Generate a shell hook for tasks
+    #:-  tasks: list[task]
     mkShellHook = tasks: /*bash*/ ''
         ${mkHelpScript tasks}
     '';
 
     #: Create a flake app that generates scripts, based on a task, in specified paths
+    #:-  task-files: set<string, script>
     mkGenScriptsApp = task-files: {
         type = "app";
         program = let

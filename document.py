@@ -6,10 +6,11 @@ MODULE_BEGIN   = "#!"
 PROPERTY_BEGIN = "#:"
 
 class Module:
-    def __init__(self, name, desc, line):
+    def __init__(self, name, desc, line, file):
         self.name = name
         self.desc = desc
         self.line = line
+        self.file = file
         self.symbols = []
 
     def add_symbol(self, symbol):
@@ -25,22 +26,24 @@ class Module:
         return f"Module({self.name}: {self.desc}, {len(self.symbols)} symbols)"
 
 class Symbol:
-    def __init__(self, name, desc, line):
+    def __init__(self, name, desc, line, file):
         self.name = name
         self.desc = desc
         self.line = line
+        self.file = file
 
     def to_markdown(self):
-        return f"`{self.name}`\n{self.desc}\n"
+        return f"##### `{self.name}`: {self.desc}\n\nSource: [`{self.file}:{self.line}`]({self.file}?plain=1#L{self.line})\n\n"
 
     def __repr__(self):
         return f"Symbol({self.name}, {self.desc}, {self.line})"
 
 class Parser:
-    def __init__(self, lines):
+    def __init__(self, lines, file):
         self.cursor = 0
         self.lines = lines
         self.symbols = []
+        self.file = file
 
     def get_line(self):
         return self.lines[self.cursor]
@@ -54,7 +57,7 @@ class Parser:
             line = self.get_line().strip()
 
         name = line.split(" = ")[0]
-        symbol = Symbol(name, "\n".join(desc_lines), self.cursor)
+        symbol = Symbol(name, "\n".join(desc_lines), self.cursor, self.file)
 
 
         if len(self.symbols) > 0 and type(self.symbols[-1]) == Module:
@@ -71,7 +74,7 @@ class Parser:
             line = self.get_line().strip()
 
         name = line.split(" = ")[0]
-        mod = Module(name, "\n".join(desc_lines), self.cursor)
+        mod = Module(name, "\n".join(desc_lines), self.cursor, self.file)
 
         self.symbols.append(mod)
 
@@ -100,7 +103,7 @@ def main():
     with open(filename) as f:
         lines = f.readlines()
 
-    parser = Parser(lines)
+    parser = Parser(lines, filename)
     parser.parse()
 
     for sym in parser.get_symbols():

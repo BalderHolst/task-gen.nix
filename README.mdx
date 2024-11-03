@@ -5,7 +5,12 @@ A nix library for creating project tasks using nix. These tasks can be embedded 
 ### Available Functions
 !{./document.py ./lib.nix}
 
-### Builtin Tasks
-Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.tasks`.
+### Task Generators
+Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.gen`.
 
 !{./document.py ./builtin-tasks.nix}
+
+### Shell Snippets
+A collection of shell snippets to be used when generating tasks. They are mostly things i find myself writing often and have to google every time. These are available through `task-gen.<system>.lib.snips`.
+
+!{./document.py ./snippets.nix}

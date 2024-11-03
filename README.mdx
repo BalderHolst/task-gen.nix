@@ -1,16 +1,31 @@
 # Nix Task Generator
 A nix library for creating project tasks using nix. These tasks can be embedded into your development shell and can be used to generate makefiles and git hooks.
 
+!(python){
+    # Generate table-of-content
+    import re
 
-### Available Functions
+    with open("./README.mdx") as f:
+        lines = f.readlines()
+
+    for line in lines:
+        # Check if line is a heading
+        if re.match(r'^#+ ', line):
+            line = line.strip()
+            (prefix, heading) = line.split(' ', 1)
+            if len(prefix) == 1: continue
+            print(f"- [{heading}](#{heading.lower().replace(' ', '-')})")
+}
+
+## Available Functions
 !{./document.py ./lib.nix}
 
-### Task Generators
+## Task Generators
 Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.gen`.
 
 !{./document.py ./builtin-tasks.nix}
 
-### Shell Snippets
+## Shell Snippets
 A collection of shell snippets to be used when generating tasks. They are mostly things i find myself writing often and have to google every time. These are available through `task-gen.<system>.lib.snips`.
 
 !{./document.py ./snippets.nix}

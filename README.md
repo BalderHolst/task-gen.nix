@@ -1,8 +1,11 @@
 # Nix Task Generator
 A nix library for creating project tasks using nix. These tasks can be embedded into your development shell and can be used to generate makefiles and git hooks.
 
+- [Available Functions](#available-functions)
+- [Task Generators](#task-generators)
+- [Shell Snippets](#shell-snippets)
 
-### Available Functions
+## Available Functions
 #### **`mkTask`**: Create a task
 
 *Args:*
@@ -95,7 +98,7 @@ Source: [`./lib.nix:168`](./lib.nix?plain=1#L168)
 
 Source: [`./lib.nix:171`](./lib.nix?plain=1#L171)
 
-### Task Generators
+## Task Generators
 Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.gen`.
 
 #### **`gen-scripts`**: Generate a task to run the app which generates scripts in specified paths
@@ -106,14 +109,14 @@ Below is a list of functions to generate common tasks. The list is short for now
 Source: [`./builtin-tasks.nix:7`](./builtin-tasks.nix?plain=1#L7)
 
 
-#### **`check-no-uncommited`**: Check that the repository has no uncommitted changes and fail if so.
+#### **`check-no-uncommited`**: Check that the repository has no uncommitted changes and fail if so
 
 *Args:*
 - `msg`: `string` - Message to display if there are uncommitted changes
 
 Source: [`./builtin-tasks.nix:11`](./builtin-tasks.nix?plain=1#L11)
 
-### Shell Snippets
+## Shell Snippets
 A collection of shell snippets to be used when generating tasks. They are mostly things i find myself writing often and have to google every time. These are available through `task-gen.<system>.lib.snips`.
 
 #### **`git-find-root`**: Find the root of the current git repository

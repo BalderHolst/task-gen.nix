@@ -57,7 +57,7 @@ class Parser:
             line = self.get_line().strip()
 
         name = line.split(" = ")[0]
-        symbol = Symbol(name, "\n".join(desc_lines), self.cursor, self.file)
+        symbol = Symbol(name, "\n".join(desc_lines), self.cursor+1, self.file)
 
 
         if len(self.symbols) > 0 and type(self.symbols[-1]) == Module:

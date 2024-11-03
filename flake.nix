@@ -27,7 +27,7 @@
         apps.gen-scripts = with task-lib; mkGenScriptsApp {
             ".hooks/pre-push" = mkScript (mkSeq "pre-push" [
                 tasks.gen-readme
-                (task-lib.tasks.git.check-no-uncommited "Please commit all changes before pushing")
+                (task-lib.gen.check-no-uncommited "Please commit all changes before pushing")
             ]);
         };
 

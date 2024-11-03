@@ -59,8 +59,8 @@ class Symbol:
         args = ""
         if len(self.args) > 0:
             args = "\n".join(map(lambda x: x.to_markdown(), self.args))
-            args = f"Args:\n{args}\n\n"
-        return f"#### `{self.name}`\n\n{self.desc}\n\n{args}Source: [`{self.file}:{self.line}`]({self.file}?plain=1#L{self.line})\n\n"
+            args = f"*Args:*\n{args}\n\n"
+        return f"#### **`{self.name}`**: {self.desc}\n\n{args}Source: [`{self.file}:{self.line}`]({self.file}?plain=1#L{self.line})\n\n"
 
     def __repr__(self):
         return f"Symbol({self.name}, {self.desc}, {self.line})"
@@ -84,7 +84,7 @@ class Parser:
                 line = line[len(ARG_BEGIN):].strip()
                 desc = None
                 if line.find(" - ") != -1:
-                    [line, desc] = line[len(ARG_BEGIN):].strip().split(" - ", 1)
+                    [line, desc] = line.strip().split(" - ", 1)
                 [name, kind] = line.split(": ", 1)
                 args.append(Arg(name, kind, desc))
             else:

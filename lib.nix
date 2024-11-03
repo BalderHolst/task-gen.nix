@@ -66,8 +66,8 @@ in
 rec {
 
     #: Create a task
-    #:-  name: string
-    #:-  details: { script?: string, depends?: list[task] }
+    #:-  name: string - The name of the task
+    #:-  details: { script?: string, depends?: list[task] } - A set maybe containing a script and dependencies
     mkTask = name: { script ? "", depends ? [], }: {
         name = name;
         script = script;
@@ -75,16 +75,16 @@ rec {
     };
 
     #: Create a sequence of tasks
-    #:-  name: string
-    #:-  seq: list[task]
+    #:-  name: string - The name of the sequence task
+    #:-  seq: list[task] - A list of tasks to be executed in sequence
     mkSeq = name: seq: mkTask name { depends = seq; };
 
     #: Generate a script that executes a task
-    #:-  task: task
+    #:-  task: task - The task to be executed
     mkScript = _mkScript _writeScript;
 
     #: Generate a script (package) that executes a task
-    #:-  task: task
+    #:-  task: task - The task to be executed
     mkScriptBin = _mkScript _writeScriptBin;
 
     #: Generate a help script that lists all tasks
@@ -138,7 +138,7 @@ rec {
     '';
 
     #: Create a flake app that generates scripts, based on a task, in specified paths
-    #:-  task-files: set<string, script>
+    #:-  task-files: set<string, script> - A set of paths and scripts to be generated
     mkGenScriptsApp = task-files: {
         type = "app";
         program = let

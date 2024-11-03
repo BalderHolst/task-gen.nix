@@ -9,8 +9,8 @@ A nix library for creating project tasks using nix. These tasks can be embedded 
 #### **`mkTask`**: Create a task
 
 *Args:*
-- `name`: `string`
-- `details`: `{ script?: string, depends?: list[task] }`
+- `name`: `string` - The name of the task
+- `details`: `{ script?: string, depends?: list[task] }` - A set maybe containing a script and dependencies
 
 Source: [`./lib.nix:71`](./lib.nix?plain=1#L71)
 
@@ -18,8 +18,8 @@ Source: [`./lib.nix:71`](./lib.nix?plain=1#L71)
 #### **`mkSeq`**: Create a sequence of tasks
 
 *Args:*
-- `name`: `string`
-- `seq`: `list[task]`
+- `name`: `string` - The name of the sequence task
+- `seq`: `list[task]` - A list of tasks to be executed in sequence
 
 Source: [`./lib.nix:80`](./lib.nix?plain=1#L80)
 
@@ -27,7 +27,7 @@ Source: [`./lib.nix:80`](./lib.nix?plain=1#L80)
 #### **`mkScript`**: Generate a script that executes a task
 
 *Args:*
-- `task`: `task`
+- `task`: `task` - The task to be executed
 
 Source: [`./lib.nix:84`](./lib.nix?plain=1#L84)
 
@@ -35,7 +35,7 @@ Source: [`./lib.nix:84`](./lib.nix?plain=1#L84)
 #### **`mkScriptBin`**: Generate a script (package) that executes a task
 
 *Args:*
-- `task`: `task`
+- `task`: `task` - The task to be executed
 
 Source: [`./lib.nix:88`](./lib.nix?plain=1#L88)
 
@@ -83,7 +83,7 @@ Source: [`./lib.nix:136`](./lib.nix?plain=1#L136)
 #### **`mkGenScriptsApp`**: Create a flake app that generates scripts, based on a task, in specified paths
 
 *Args:*
-- `task-files`: `set<string, script>`
+- `task-files`: `set<string, script>` - A set of paths and scripts to be generated
 
 Source: [`./lib.nix:142`](./lib.nix?plain=1#L142)
 

@@ -151,5 +151,11 @@ rec {
         '');
     };
 
-    tasks = import ./builtin-tasks.nix { inherit mkTask; };
+    #: Set of function used to generate commonly used tasks.
+    #: See [Task Generators](#task-generators).
+    gen = import ./builtin-tasks.nix { inherit mkTask; };
+
+    #: Set of snippets to be used in tasks.
+    snips = import ./snippets.nix;
+
 }

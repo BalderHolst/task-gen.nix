@@ -8,8 +8,8 @@ A nix library for creating project tasks using nix. These tasks can be embedded 
 Create a task
 
 Args:
-- `#:-  name`: `string`
-- `#:-  details`: `{ script?: string, depends?: list[task] }`
+- `name`: `string`
+- `details`: `{ script?: string, depends?: list[task] }`
 
 Source: [`./lib.nix:71`](./lib.nix?plain=1#L71)
 
@@ -19,8 +19,8 @@ Source: [`./lib.nix:71`](./lib.nix?plain=1#L71)
 Create a sequence of tasks
 
 Args:
-- `#:-  name`: `string`
-- `#:-  seq`: `list[task]`
+- `name`: `string`
+- `seq`: `list[task]`
 
 Source: [`./lib.nix:80`](./lib.nix?plain=1#L80)
 
@@ -30,7 +30,7 @@ Source: [`./lib.nix:80`](./lib.nix?plain=1#L80)
 Generate a script that executes a task
 
 Args:
-- `#:-  task`: `task`
+- `task`: `task`
 
 Source: [`./lib.nix:84`](./lib.nix?plain=1#L84)
 
@@ -40,7 +40,7 @@ Source: [`./lib.nix:84`](./lib.nix?plain=1#L84)
 Generate a script (package) that executes a task
 
 Args:
-- `#:-  task`: `task`
+- `task`: `task`
 
 Source: [`./lib.nix:88`](./lib.nix?plain=1#L88)
 
@@ -50,7 +50,7 @@ Source: [`./lib.nix:88`](./lib.nix?plain=1#L88)
 Generate a help script that lists all tasks
 
 Args:
-- `#:-  tasks`: `list[task]`
+- `tasks`: `list[task]`
 
 Source: [`./lib.nix:92`](./lib.nix?plain=1#L92)
 
@@ -60,7 +60,7 @@ Source: [`./lib.nix:92`](./lib.nix?plain=1#L92)
 Generate a help script (package) that lists all tasks
 
 Args:
-- `#:-  tasks`: `list[task]`
+- `tasks`: `list[task]`
 
 Source: [`./lib.nix:96`](./lib.nix?plain=1#L96)
 
@@ -70,7 +70,7 @@ Source: [`./lib.nix:96`](./lib.nix?plain=1#L96)
 Generate a list of scripts for each task
 
 Args:
-- `#:-  tasks`: `list[task]`
+- `tasks`: `list[task]`
 
 Source: [`./lib.nix:100`](./lib.nix?plain=1#L100)
 
@@ -80,7 +80,7 @@ Source: [`./lib.nix:100`](./lib.nix?plain=1#L100)
 Generate a Makefile for tasks
 
 Args:
-- `#:-  tasks`: `list[task]`
+- `tasks`: `list[task]`
 
 Source: [`./lib.nix:104`](./lib.nix?plain=1#L104)
 
@@ -90,7 +90,7 @@ Source: [`./lib.nix:104`](./lib.nix?plain=1#L104)
 Generate a shell hook for tasks
 
 Args:
-- `#:-  tasks`: `list[task]`
+- `tasks`: `list[task]`
 
 Source: [`./lib.nix:136`](./lib.nix?plain=1#L136)
 
@@ -100,7 +100,7 @@ Source: [`./lib.nix:136`](./lib.nix?plain=1#L136)
 Create a flake app that generates scripts, based on a task, in specified paths
 
 Args:
-- `#:-  task-files`: `set<string, script>`
+- `task-files`: `set<string, script>`
 
 Source: [`./lib.nix:142`](./lib.nix?plain=1#L142)
 
@@ -127,7 +127,7 @@ Below is a list of functions to generate common tasks. The list is short for now
 Generate a task to run the app which generates scripts in specified paths
 
 Args:
-- `name`: `string` - Name of the app which generates scripts (usually "gen-scripts")
+- `e`: `string` - Name of the app which generates scripts (usually "gen-scripts")
 
 Source: [`./builtin-tasks.nix:7`](./builtin-tasks.nix?plain=1#L7)
 
@@ -137,7 +137,7 @@ Source: [`./builtin-tasks.nix:7`](./builtin-tasks.nix?plain=1#L7)
 Check that the repository has no uncommitted changes and fail if so.
 
 Args:
-- `msg`: `string` - Message to display if there are uncommitted changes
+- ``: `string` - Message to display if there are uncommitted changes
 
 Source: [`./builtin-tasks.nix:11`](./builtin-tasks.nix?plain=1#L11)
 

@@ -81,6 +81,7 @@ class Parser:
         line = self.get_line().strip()
         while line.startswith(PROPERTY_BEGIN):
             if line.startswith(ARG_BEGIN):
+                line = line[len(ARG_BEGIN):].strip()
                 desc = None
                 if line.find(" - ") != -1:
                     [line, desc] = line[len(ARG_BEGIN):].strip().split(" - ", 1)

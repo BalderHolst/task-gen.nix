@@ -6,102 +6,148 @@ A nix library for creating project tasks using nix. These tasks can be embedded 
 - [Shell Snippets](#shell-snippets)
 
 ## Available Functions
-#### **`mkTask`**: Create a task
+#### **`mkTask`** *name* *details*
+
+Create a task
 
 *Args:*
 - `name`: `string` - The name of the task
 - `details`: `{ script?: string, depends?: list[task] }` - A set maybe containing a script and dependencies
 
-Source: [`./lib.nix:71`](./lib.nix?plain=1#L71)
+Returns: `task`
+
+Source: [`./lib.nix:72`](./lib.nix?plain=1#L72)
 
 
-#### **`mkSeq`**: Create a sequence of tasks
+#### **`mkSeq`** *name* *seq*
+
+Create a sequence of tasks
 
 *Args:*
 - `name`: `string` - The name of the sequence task
 - `seq`: `list[task]` - A list of tasks to be executed in sequence
 
-Source: [`./lib.nix:80`](./lib.nix?plain=1#L80)
+Returns: `task`
+
+Source: [`./lib.nix:82`](./lib.nix?plain=1#L82)
 
 
-#### **`mkScript`**: Generate a script that executes a task
+#### **`mkScript`** *task*
 
-*Args:*
-- `task`: `task` - The task to be executed
-
-Source: [`./lib.nix:84`](./lib.nix?plain=1#L84)
-
-
-#### **`mkScriptBin`**: Generate a script (package) that executes a task
+Generate a script that executes a task
 
 *Args:*
 - `task`: `task` - The task to be executed
 
-Source: [`./lib.nix:88`](./lib.nix?plain=1#L88)
+Returns: `path` - Path to the generated script in nix store
+
+Source: [`./lib.nix:87`](./lib.nix?plain=1#L87)
 
 
-#### **`mkHelpScript`**: Generate a help script that lists all tasks
+#### **`mkScriptBin`** *task*
+
+Generate a script (package) that executes a task
 
 *Args:*
-- `tasks`: `list[task]`
+- `task`: `task` - The task to be executed
+
+Returns: `package` - Path to the package in nix store
 
 Source: [`./lib.nix:92`](./lib.nix?plain=1#L92)
 
 
-#### **`mkHelpScriptBin`**: Generate a help script (package) that lists all tasks
+#### **`mkHelpScript`** *tasks*
+
+Generate a help script that lists all tasks
 
 *Args:*
 - `tasks`: `list[task]`
 
-Source: [`./lib.nix:96`](./lib.nix?plain=1#L96)
+Returns: `path` - Path to help script in nix store
+
+Source: [`./lib.nix:97`](./lib.nix?plain=1#L97)
 
 
-#### **`mkScripts`**: Generate a list of scripts for each task
+#### **`mkHelpScriptBin`** *tasks*
 
-*Args:*
-- `tasks`: `list[task]`
-
-Source: [`./lib.nix:100`](./lib.nix?plain=1#L100)
-
-
-#### **`mkMakefile`**: Generate a Makefile for tasks
+Generate a help script (package) that lists all tasks
 
 *Args:*
 - `tasks`: `list[task]`
 
-Source: [`./lib.nix:104`](./lib.nix?plain=1#L104)
+Returns: `package` - Path to help script package in nix store
+
+Source: [`./lib.nix:102`](./lib.nix?plain=1#L102)
 
 
-#### **`mkShellHook`**: Generate a shell hook for tasks
+#### **`mkScripts`** *tasks*
+
+Generate a list of scripts for each task
 
 *Args:*
 - `tasks`: `list[task]`
 
-Source: [`./lib.nix:136`](./lib.nix?plain=1#L136)
+Returns: `list[package]` - List of packages in nix store. These can be appended to shell inputs.
+
+Source: [`./lib.nix:107`](./lib.nix?plain=1#L107)
 
 
-#### **`mkGenScriptsApp`**: Create a flake app that generates scripts, based on a task, in specified paths
+#### **`mkMakefile`** *tasks*
+
+Generate a Makefile for tasks
+
+*Args:*
+- `tasks`: `list[task]`
+
+Returns: `path` - Path to generate Makefile in nix store
+
+Source: [`./lib.nix:112`](./lib.nix?plain=1#L112)
+
+
+#### **`mkShellHook`** *tasks*
+
+Generate a shell hook for tasks
+
+*Args:*
+- `tasks`: `list[task]`
+
+Returns: `string` - Shell hook string
+
+Source: [`./lib.nix:145`](./lib.nix?plain=1#L145)
+
+
+#### **`mkGenScriptsApp`** *task-files*
+
+Create a flake app that generates scripts, based on a task, in specified paths
 
 *Args:*
 - `task-files`: `set<string, script>` - A set of paths and scripts to be generated
 
-Source: [`./lib.nix:142`](./lib.nix?plain=1#L142)
+Returns: `app` - A flake app that generates scripts scripts in specified paths
+
+Source: [`./lib.nix:152`](./lib.nix?plain=1#L152)
 
 
-#### **`gen`**: Set of function used to generate commonly used tasks.
+#### **`gen`** 
+
+Set of function used to generate commonly used tasks.
 See [Task Generators](#task-generators).
 
-Source: [`./lib.nix:168`](./lib.nix?plain=1#L168)
+Source: [`./lib.nix:178`](./lib.nix?plain=1#L178)
 
 
-#### **`snips`**: Set of snippets to be used in tasks.
+#### **`snips`** 
 
-Source: [`./lib.nix:171`](./lib.nix?plain=1#L171)
+Set of snippets to be used in tasks.
+
+Source: [`./lib.nix:181`](./lib.nix?plain=1#L181)
 
 ## Task Generators
 Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.gen`.
 
-#### **`gen-scripts`**: Generate a task to run the app which generates scripts in specified paths
+#### **`gen-scripts`** *name*
+
+Generate a task to run the app which generates scripts in specified paths
 
 *Args:*
 - `name`: `string` - Name of the app which generates scripts (usually "gen-scripts")
@@ -109,7 +155,9 @@ Below is a list of functions to generate common tasks. The list is short for now
 Source: [`./builtin-tasks.nix:7`](./builtin-tasks.nix?plain=1#L7)
 
 
-#### **`check-no-uncommited`**: Check that the repository has no uncommitted changes and fail if so
+#### **`check-no-uncommited`** *msg*
+
+Check that the repository has no uncommitted changes and fail if so
 
 *Args:*
 - `msg`: `string` - Message to display if there are uncommitted changes
@@ -119,6 +167,8 @@ Source: [`./builtin-tasks.nix:11`](./builtin-tasks.nix?plain=1#L11)
 ## Shell Snippets
 A collection of shell snippets to be used when generating tasks. They are mostly things i find myself writing often and have to google every time. These are available through `task-gen.<system>.lib.snips`.
 
-#### **`git-find-root`**: Find the root of the current git repository
+#### **`git-find-root`** 
+
+Find the root of the current git repository
 
 Source: [`./snippets.nix:3`](./snippets.nix?plain=1#L3)

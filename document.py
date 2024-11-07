@@ -6,8 +6,10 @@ from dataclasses import dataclass
 MODULE_BEGIN   = "#!"
 PROPERTY_BEGIN = "#:"
 ARG_BEGIN      = "#:-"
+RETURN_BEGIN   = "#:>"
 
 assert ARG_BEGIN.startswith(PROPERTY_BEGIN)
+assert RETURN_BEGIN.startswith(PROPERTY_BEGIN)
 
 class Module:
     def __init__(self, name, desc, line, file):
@@ -45,22 +47,39 @@ class Arg:
         return f"Arg({self.name}, {self.kind})"
 
 class Symbol:
-    def __init__(self, name, desc, line, file, args=[]):
+    def __init__(self, name, desc, line, file, args, ret, ret_desc):
         self.name = name
         self.desc = desc
         self.line = line
         self.file = file
         self.args = args
+        self.ret = ret
+        self.ret_desc = ret_desc
 
     def add_arg(self, arg):
         self.args.append(arg)
 
     def to_markdown(self):
-        args = ""
+        s = f"#### **`{self.name}`** {' '.join(map(lambda x: f'*{x.name}*', self.args))}"
+        s += "\n\n"
+        s += self.desc
+        s += "\n\n"
+
+        # Maybe add "Args" section
         if len(self.args) > 0:
             args = "\n".join(map(lambda x: x.to_markdown(), self.args))
-            args = f"*Args:*\n{args}\n\n"
-        return f"#### **`{self.name}`**: {self.desc}\n\n{args}Source: [`{self.file}:{self.line}`]({self.file}?plain=1#L{self.line})\n\n"
+            s += f"*Args:*\n{args}\n\n"
+
+        if self.ret is not None:
+            s += f"Returns: `{self.ret}`"
+            if self.ret_desc:
+                s += f" - {self.ret_desc}"
+            s += "\n\n"
+
+        # Add source reference
+        s += f"Source: [`{self.file}:{self.line}`]({self.file}?plain=1#L{self.line})\n\n"
+
+        return s
 
     def __repr__(self):
         return f"Symbol({self.name}, {self.desc}, {self.line})"
@@ -78,6 +97,8 @@ class Parser:
     def parse_property(self):
         desc_lines = []
         args = []
+        ret = None
+        ret_desc = None
         line = self.get_line().strip()
         while line.startswith(PROPERTY_BEGIN):
             if line.startswith(ARG_BEGIN):
@@ -87,13 +108,23 @@ class Parser:
                     [line, desc] = line.strip().split(" - ", 1)
                 [name, kind] = line.split(": ", 1)
                 args.append(Arg(name, kind, desc))
+            elif line.startswith(RETURN_BEGIN):
+                assert ret is None
+                line = line[len(RETURN_BEGIN):].strip()
+                if line.find(" - ") != -1:
+                    [ret, ret_desc] = line.split(" - ", 1)
+                    ret_desc = ret_desc.strip()
+                else:
+                    ret = line
+                ret = ret.strip()
+
             else:
                 desc_lines.append(line[len(PROPERTY_BEGIN):].strip())
             self.cursor += 1
             line = self.get_line().strip()
 
         name = line.split(" = ")[0]
-        symbol = Symbol(name, "\n".join(desc_lines), self.cursor+1, self.file, args=args)
+        symbol = Symbol(name, "\n".join(desc_lines), self.cursor+1, self.file, args, ret, ret_desc)
 
 
         if len(self.symbols) > 0 and type(self.symbols[-1]) == Module:

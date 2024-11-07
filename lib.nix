@@ -68,6 +68,7 @@ rec {
     #: Create a task
     #:-  name: string - The name of the task
     #:-  details: { script?: string, depends?: list[task] } - A set maybe containing a script and dependencies
+    #:>  task
     mkTask = name: { script ? "", depends ? [], }: {
         name = name;
         script = script;
@@ -77,30 +78,37 @@ rec {
     #: Create a sequence of tasks
     #:-  name: string - The name of the sequence task
     #:-  seq: list[task] - A list of tasks to be executed in sequence
+    #:>  task
     mkSeq = name: seq: mkTask name { depends = seq; };
 
     #: Generate a script that executes a task
     #:-  task: task - The task to be executed
+    #:>  path - Path to the generated script in nix store
     mkScript = _mkScript _writeScript;
 
     #: Generate a script (package) that executes a task
     #:-  task: task - The task to be executed
+    #:>  package - Path to the package in nix store
     mkScriptBin = _mkScript _writeScriptBin;
 
     #: Generate a help script that lists all tasks
     #:-  tasks: list[task]
+    #:>  path - Path to help script in nix store
     mkHelpScript = _mkHelpScript _writeScript;
 
     #: Generate a help script (package) that lists all tasks
     #:-  tasks: list[task]
+    #:>  package - Path to help script package in nix store
     mkHelpScriptBin = _mkHelpScript _writeScriptBin;
 
     #: Generate a list of scripts for each task
     #:-  tasks: list[task]
+    #:>  list[package] - List of packages in nix store. These can be appended to shell inputs.
     mkScripts = tasks: (lib.attrsets.mapAttrsToList (_: j: mkScriptBin j) tasks) ++ [(mkHelpScriptBin tasks)];
 
     #: Generate a Makefile for tasks
     #:-  tasks: list[task]
+    #:>  path - Path to generate Makefile in nix store
     mkMakefile = tasks: let
         task_list = if builtins.typeOf tasks == "list" then tasks else builtins.attrValues tasks;
     in
@@ -133,12 +141,14 @@ rec {
 
     #: Generate a shell hook for tasks
     #:-  tasks: list[task]
+    #:>  string - Shell hook string
     mkShellHook = tasks: /*bash*/ ''
         ${mkHelpScript tasks}
     '';
 
     #: Create a flake app that generates scripts, based on a task, in specified paths
     #:-  task-files: set<string, script> - A set of paths and scripts to be generated
+    #:>  app - A flake app that generates scripts scripts in specified paths
     mkGenScriptsApp = task-files: {
         type = "app";
         program = let

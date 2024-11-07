@@ -17,27 +17,6 @@ echo "--->> Running 'gen-scripts'"
 # Run gen-scripts task
 nix run .#gen-scripts
 
-echo "--->> Running 'update'"
-# Dependencies for update
-echo "----->> Running 'update-flake'"
-# Dependencies for update-flake
-
-# Run update-flake task
-nix flake update
-
-echo "----->> Running 'update-examples'"
-# Dependencies for update-examples
-
-# Run update-examples task
-ls examples | while read example; do
-    echo "Updating example: $example";
-    nix flake update --flake ./examples/$example
-done
-
-
-# Run update task
-
-
 echo "--->> Running 'check-no-uncommited'"
 # Dependencies for check-no-uncommited
 

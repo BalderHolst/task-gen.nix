@@ -14,7 +14,6 @@ rec {
     pre-push = mkSeq "pre-push" [
         gen-readme
         gen-scripts
-        update
         (task-lib.gen.check-no-uncommited "Please commit all changes before pushing")
     ];
 }

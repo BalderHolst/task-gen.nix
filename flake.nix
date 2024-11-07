@@ -25,7 +25,7 @@
         lib = task-lib;
 
         apps.gen-scripts = with task-lib; mkGenScriptsApp {
-            ".hooks/pre-push" = mkScript pre-push;
+            ".hooks/pre-push" = mkScript tasks.pre-push;
         };
 
         devShells = {

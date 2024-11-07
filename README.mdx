@@ -17,6 +17,43 @@ A nix library for creating project tasks using nix. These tasks can be embedded 
             print(f"- [{heading}](#{heading.lower().replace(' ', '-')})")
 }
 
+
+## Minimal Example
+In the following code we define three tasks:
+- "first-task"
+- "second-task"
+- "run-in-sequence"
+
+They are all injected into the `$PATH` the dev-shell meaning that they can be run directly from within the shell.
+
+```nix
+!{cat ./examples/minimal/flake.nix}
+```
+(This code can be found in [./examples/minimal](./examples/minimal))
+
+Entering the dev-shell greets you with the following:
+```text
+!{cd ./examples/minimal; nix develop --command "true" 2> /dev/null}
+```
+
+The tasks can be run as follows:
+```console
+$ first-task
+->> Running 'first-task'
+Hello! This is first task!
+
+$ second-task
+->> Running 'second-task'
+Hi! This is SECOND task!
+
+$ run-in-sequence
+->> Running 'run-in-sequence'
+--->> Running 'first-task'
+Hello! This is first task!
+--->> Running 'second-task'
+Hi! This is SECOND task!
+```
+
 ## Available Functions and Sets
 !{./document.py ./lib.nix}
 

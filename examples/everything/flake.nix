@@ -1,10 +1,10 @@
-{
-    description = "A very basic flake";
+rec {
+    description = "Full demo of task-gen library";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
         flake-utils.url = "github:numtide/flake-utils";
-        task-gen.url = "git+file://../..";
+        task-gen.url = "github:BalderHolst/task-gen.nix";
     };
 
     outputs = { nixpkgs, flake-utils, task-gen, ... }:
@@ -36,7 +36,7 @@
                 ] ++ (task-lib.mkScripts tasks);
 
                 shellHook = ''
-                    echo -e "Welcome to the devShell!\n"
+                    echo -e "${description}\n"
                 '' + task-lib.mkShellHook tasks;
             };
 

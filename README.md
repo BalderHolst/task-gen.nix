@@ -1,11 +1,11 @@
 # Nix Task Generator
 A nix library for creating project tasks using nix. These tasks can be embedded into your development shell and can be used to generate makefiles and git hooks.
 
-- [Available Functions](#available-functions)
+- [Available Functions and Sets](#available-functions-and-sets)
 - [Task Generators](#task-generators)
 - [Shell Snippets](#shell-snippets)
 
-## Available Functions
+## Available Functions and Sets
 - [mkTask](#mkTask-name-details)
 - [mkSeq](#mkSeq-name-seq)
 - [mkScript](#mkScript-task)

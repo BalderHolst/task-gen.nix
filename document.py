@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+# This is a quick and dirty script to generate markdown documentation
+# from custom "doc-comments" in the nix source files in the project.
+# It is run by [txtx](https://github.com/BalderHolst/txtx) on each
+# source file to generate the documentation in the README.md.
+
+# Generate the README.md with `txtx ./README.mdx ./README.md`
+
 import sys
 from dataclasses import dataclass
 

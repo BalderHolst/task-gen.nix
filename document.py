@@ -157,6 +157,13 @@ class Parser:
     def get_symbols(self):
         return self.symbols
 
+def toc(symbols):
+    for sym in symbols:
+        print(f"- [{sym.name}](#{sym.name}-{'-'.join(map(lambda a: a.name, sym.args))})")
+
+
+    print("\n--------\n")
+
 def main():
 
     # Pull file from argv
@@ -173,7 +180,11 @@ def main():
     parser = Parser(lines, filename)
     parser.parse()
 
-    for sym in parser.get_symbols():
+    symbols = parser.get_symbols()
+
+    toc(symbols)
+
+    for sym in symbols:
         print(sym.to_markdown())
 
 

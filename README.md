@@ -6,6 +6,21 @@ A nix library for creating project tasks using nix. These tasks can be embedded 
 - [Shell Snippets](#shell-snippets)
 
 ## Available Functions
+- [mkTask](#mkTask-name-details)
+- [mkSeq](#mkSeq-name-seq)
+- [mkScript](#mkScript-task)
+- [mkScriptBin](#mkScriptBin-task)
+- [mkHelpScript](#mkHelpScript-tasks)
+- [mkHelpScriptBin](#mkHelpScriptBin-tasks)
+- [mkScripts](#mkScripts-tasks)
+- [mkMakefile](#mkMakefile-tasks)
+- [mkShellHook](#mkShellHook-tasks)
+- [mkGenScriptsApp](#mkGenScriptsApp-task-files)
+- [gen](#gen-)
+- [snips](#snips-)
+
+--------
+
 #### **`mkTask`** *name* *details*
 
 Create a task
@@ -145,6 +160,11 @@ Source: [`./lib.nix:181`](./lib.nix?plain=1#L181)
 ## Task Generators
 Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.gen`.
 
+- [gen-scripts](#gen-scripts-name)
+- [check-no-uncommited](#check-no-uncommited-msg)
+
+--------
+
 #### **`gen-scripts`** *name*
 
 Generate a task to run the app which generates scripts in specified paths
@@ -166,6 +186,10 @@ Source: [`./builtin-tasks.nix:11`](./builtin-tasks.nix?plain=1#L11)
 
 ## Shell Snippets
 A collection of shell snippets to be used when generating tasks. They are mostly things i find myself writing often and have to google every time. These are available through `task-gen.<system>.lib.snips`.
+
+- [git-find-root](#git-find-root-)
+
+--------
 
 #### **`git-find-root`** 
 

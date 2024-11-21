@@ -25,7 +25,7 @@ rec {
                         tasks.rainbow-hello
                         tasks.rainbow-morning
                     ]);
-
+                    "task-scripts" = mkScriptDir tasks;
                 };
             };
 

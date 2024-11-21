@@ -113,6 +113,7 @@ Hi! This is SECOND task!
 - [mkHelpScript](#mkHelpScript-tasks)
 - [mkHelpScriptBin](#mkHelpScriptBin-tasks)
 - [mkScripts](#mkScripts-tasks)
+- [mkScriptDir](#mkScriptDir-tasks)
 - [mkMakefile](#mkMakefile-tasks)
 - [mkShellHook](#mkShellHook-tasks)
 - [mkGenScriptsApp](#mkGenScriptsApp-task-files)
@@ -207,6 +208,18 @@ Returns: `list[package]` - List of packages in nix store. These can be appended 
 Source: [`./lib.nix:107`](./lib.nix?plain=1#L107)
 
 
+#### **`mkScriptDir`** *tasks*
+
+Generate a directory of scripts for each task
+
+*Args:*
+- `tasks`: `list[task]`
+
+Returns: `package` - Path to the directory of scripts in nix store
+
+Source: [`./lib.nix:112`](./lib.nix?plain=1#L112)
+
+
 #### **`mkMakefile`** *tasks*
 
 Generate a Makefile for tasks
@@ -216,7 +229,7 @@ Generate a Makefile for tasks
 
 Returns: `path` - Path to generate Makefile in nix store
 
-Source: [`./lib.nix:112`](./lib.nix?plain=1#L112)
+Source: [`./lib.nix:131`](./lib.nix?plain=1#L131)
 
 
 #### **`mkShellHook`** *tasks*
@@ -228,7 +241,7 @@ Generate a shell hook for tasks
 
 Returns: `string` - Shell hook string
 
-Source: [`./lib.nix:145`](./lib.nix?plain=1#L145)
+Source: [`./lib.nix:164`](./lib.nix?plain=1#L164)
 
 
 #### **`mkGenScriptsApp`** *task-files*
@@ -240,7 +253,7 @@ Create a flake app that generates scripts, based on a task, in specified paths
 
 Returns: `app` - A flake app that generates scripts scripts in specified paths
 
-Source: [`./lib.nix:152`](./lib.nix?plain=1#L152)
+Source: [`./lib.nix:171`](./lib.nix?plain=1#L171)
 
 
 #### **`gen`** 
@@ -248,14 +261,14 @@ Source: [`./lib.nix:152`](./lib.nix?plain=1#L152)
 Set of function used to generate commonly used tasks.
 See [Task Generators](#task-generators).
 
-Source: [`./lib.nix:178`](./lib.nix?plain=1#L178)
+Source: [`./lib.nix:203`](./lib.nix?plain=1#L203)
 
 
 #### **`snips`** 
 
 Set of snippets to be used in tasks.
 
-Source: [`./lib.nix:181`](./lib.nix?plain=1#L181)
+Source: [`./lib.nix:206`](./lib.nix?plain=1#L206)
 
 ## Task Generators
 Below is a list of functions to generate common tasks. The list is short for now, but it will grow as i find more tasks that i would like to use across projects. These tasks can be accessed through `task-gen.<system>.lib.gen`.

@@ -106,6 +106,25 @@ rec {
     #:>  list[package] - List of packages in nix store. These can be appended to shell inputs.
     mkScripts = tasks: (lib.attrsets.mapAttrsToList (_: j: mkScriptBin j) tasks) ++ [(mkHelpScriptBin tasks)];
 
+    #: Generate a directory of scripts for each task
+    #:-  tasks: list[task]
+    #:>  package - Path to the directory of scripts in nix store
+    mkScriptDir = tasks: pkgs.stdenv.mkDerivation {
+        name = "scripts";
+        phases = [ "installPhase" ];
+        installPhase = let
+            task_list = if builtins.typeOf tasks == "list" then tasks else builtins.attrValues tasks;
+        in ''
+            mkdir -p $out
+            chmod -R +w $out
+            ${builtins.concatStringsSep "\n" (
+                map (t: /*bash*/ ''
+                    cp -f ${mkScript t} $out/${t.name}
+                '') task_list
+            )}
+        '';
+    };
+
     #: Generate a Makefile for tasks
     #:-  tasks: list[task]
     #:>  path - Path to generate Makefile in nix store
@@ -155,14 +174,20 @@ rec {
             parts = lib.attrsets.mapAttrsToList (path: script: /*bash*/ ''
                 echo "Generating ${path}..."
 
+                # Delete script if it exists
+                rm -rf "${path}"
+
                 # Create directory if it doesn't exist
-                mkdir -p $(dirname ${path})
+                mkdir -p "$(dirname '${path}')"
 
                 # Copy script to destination
-                cp -f ${script} ${path} || {
-                    echo "Failed to generate ${path}."
+                cp -r ${script} ${path} || {
+                    echo "Failed to generate '${path}'."
                     exit 1
                 }
+
+                # Make script directory writable
+                chmod -R +w ${path}
 
             '') task-files;
             script = builtins.concatStringsSep "\n" parts;

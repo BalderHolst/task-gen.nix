@@ -17,21 +17,21 @@ They are all injected into the `$PATH` the dev-shell meaning that they can be ru
 
 ```nix
 rec {
-    description = "Minimal example of task-gen library";
+    description = "Minimal example of task-lib library";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
         flake-utils.url = "github:numtide/flake-utils";
-        task-gen.url = "github:BalderHolst/task-gen.nix";
+        task-lib.url = "github:BalderHolst/task-lib.nix";
     };
 
-    outputs = { nixpkgs, flake-utils, task-gen, ... }:
+    outputs = { nixpkgs, flake-utils, ... }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
         let
             pkgs = import nixpkgs { inherit system; };
 
             # Import the task-gen library
-            task-lib = task-gen.lib."${system}";
+            task-lib = inputs.task-lib.lib."${system}";
 
             # Define project tasks
             tasks = with task-lib; {
@@ -77,7 +77,7 @@ rec {
 
 Entering the dev-shell greets you with the following:
 ```text
-Minimal example of task-gen library
+Minimal example of task-lib library
 
 Available Tasks:
 	first-task

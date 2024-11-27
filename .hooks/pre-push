@@ -5,6 +5,19 @@
 
 echo "->> Running 'pre-push'"
 # Dependencies for pre-push
+echo "--->> Running 'test-lib'"
+# Dependencies for test-lib
+
+# Run test-lib task
+TEST_DIR="`git rev-parse --show-toplevel`/test/tests"
+for test in $(ls $TEST_DIR); do
+    echo "Running test $test... "
+    nix eval --quiet --impure --expr "import $TEST_DIR/$test {}" > /dev/null || exit 1
+done
+
+echo "All tests passed!"
+
+
 echo "--->> Running 'gen-readme'"
 # Dependencies for gen-readme
 

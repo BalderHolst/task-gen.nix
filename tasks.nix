@@ -23,6 +23,7 @@ rec {
     update = mkSeq "update" [update-flake update-examples];
     gen-scripts = gen.gen-scripts "gen-scripts";
     pre-push = mkSeq "pre-push" [
+        test
         gen-readme
         gen-scripts
         (task-lib.gen.check-no-uncommited "Please commit all changes before pushing")

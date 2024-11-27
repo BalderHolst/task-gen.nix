@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1726560853,
-        "narHash": "sha256-X6rJYSESBVr3hBoH0WbKE5KvhPU5bloyZ2L4K60/fPQ=",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c1dfcf08411b08f6b8615f7d8971a2bfa81d5e8a",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
@@ -38,11 +38,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1730785428,
-        "narHash": "sha256-Zwl8YgTVJTEum+L+0zVAWvXAGbWAuXHax3KzuejaDyo=",
+        "lastModified": 1732521221,
+        "narHash": "sha256-2ThgXBUXAE1oFsVATK1ZX9IjPcS4nKFOAjhPNKuiMn0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4aa36568d413aca0ea84a1684d2d46f55dbabad7",
+        "rev": "4633a7c72337ea8fd23a4f2ba3972865e3ec685d",
         "type": "github"
       },
       "original": {
@@ -54,11 +54,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1730327045,
-        "narHash": "sha256-xKel5kd1AbExymxoIfQ7pgcX6hjw9jCgbiBjiUfSVJ8=",
+        "lastModified": 1730883749,
+        "narHash": "sha256-mwrFF0vElHJP8X3pFCByJR365Q2463ATp2qGIrDUdlE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "080166c15633801df010977d9d7474b4a6c549d7",
+        "rev": "dba414932936fde69f0606b4f1d87c5bc0003ede",
         "type": "github"
       },
       "original": {
@@ -72,7 +72,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "task-gen": "task-gen"
+        "task-lib": "task-lib"
       }
     },
     "systems": {
@@ -107,33 +107,13 @@
     },
     "task-gen": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_2",
-        "txtx": "txtx"
-      },
-      "locked": {
-        "lastModified": 1730987349,
-        "narHash": "sha256-Sdp7GufFAr35qtdWV3ugaxznH9+Jv9x1DWOvq4+Z6bo=",
-        "owner": "BalderHolst",
-        "repo": "task-gen.nix",
-        "rev": "cfe1ec9bea2f90cbc8af7f91fda0761c535a34eb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "BalderHolst",
-        "repo": "task-gen.nix",
-        "type": "github"
-      }
-    },
-    "task-gen_2": {
-      "inputs": {
         "flake-utils": [
-          "task-gen",
+          "task-lib",
           "txtx",
           "flake-utils"
         ],
         "nixpkgs": [
-          "task-gen",
+          "task-lib",
           "txtx",
           "nixpkgs"
         ],
@@ -153,17 +133,37 @@
         "type": "github"
       }
     },
+    "task-lib": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_2",
+        "txtx": "txtx"
+      },
+      "locked": {
+        "lastModified": 1732162867,
+        "narHash": "sha256-uiZSwoabpvsRBVlo9n6/eioc55d8o18ow4dBOU5iYQ4=",
+        "owner": "BalderHolst",
+        "repo": "task-lib.nix",
+        "rev": "a8037c54fab891fd0c2f234fb143fb3e92728ecc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BalderHolst",
+        "repo": "task-lib.nix",
+        "type": "github"
+      }
+    },
     "txtx": {
       "inputs": {
         "flake-utils": [
-          "task-gen",
+          "task-lib",
           "flake-utils"
         ],
         "nixpkgs": [
-          "task-gen",
+          "task-lib",
           "nixpkgs"
         ],
-        "task-gen": "task-gen_2"
+        "task-gen": "task-gen"
       },
       "locked": {
         "lastModified": 1730625062,
@@ -182,13 +182,13 @@
     "txtx_2": {
       "inputs": {
         "flake-utils": [
-          "task-gen",
+          "task-lib",
           "txtx",
           "task-gen",
           "flake-utils"
         ],
         "nixpkgs": [
-          "task-gen",
+          "task-lib",
           "txtx",
           "task-gen",
           "nixpkgs"

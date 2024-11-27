@@ -1,16 +1,16 @@
 rec {
-    description = "Full demo of task-gen library";
+    description = "Full demo of task-lib library";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
         flake-utils.url = "github:numtide/flake-utils";
-        task-gen.url = "github:BalderHolst/task-gen.nix";
+        task-lib.url = "github:BalderHolst/task-lib.nix";
     };
 
-    outputs = { nixpkgs, flake-utils, task-gen, ... }:
+    outputs = { nixpkgs, flake-utils, ... }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
         let
-            task-lib = task-gen.lib."${system}";
+            task-lib = inputs.task-lib.lib."${system}";
             tasks = import ./tasks.nix { inherit task-lib; };
             pkgs = import nixpkgs { inherit system; };
         in

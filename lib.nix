@@ -101,7 +101,7 @@ rec {
     #:>  package - Path to help script package in nix store
     mkHelpScriptBin = _mkHelpScript _writeScriptBin;
 
-    #: Generate a list of scripts for each task
+    #: Generate a packaged script for each task
     #:-  tasks: list[task]
     #:>  list[package] - List of packages in nix store. These can be appended to shell inputs.
     mkScripts = tasks: (lib.attrsets.mapAttrsToList (_: j: mkScriptBin j) tasks) ++ [(mkHelpScriptBin tasks)];

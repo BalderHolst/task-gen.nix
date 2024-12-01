@@ -198,7 +198,7 @@ Source: [`./lib.nix:102`](./lib.nix?plain=1#L102)
 
 #### **`mkScripts`** *tasks*
 
-Generate a list of scripts for each task
+Generate a packaged script for each task
 
 *Args:*
 - `tasks`: `list[task]`
